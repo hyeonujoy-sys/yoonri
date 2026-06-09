@@ -221,7 +221,53 @@
   }
   .entry-robot { font-size: 3em; margin-bottom: 10px; }
 
-</style>
+
+  /* 진행 단계 표시 로봇 캐릭터 */
+  #robot-character {
+    position: absolute;
+    width: 70px;
+    height: auto;
+    z-index: 20;
+    pointer-events: none;
+    transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                top 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+    animation: robot-float 2s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+  @keyframes robot-float {
+    0%, 100% { transform: translateY(0px) rotate(-3deg); }
+    50% { transform: translateY(-8px) rotate(3deg); }
+  }
+  /* 말풍선 */
+  #robot-bubble {
+    position: absolute;
+    background: rgba(255,255,255,0.95);
+    border: 2px solid #ffd700;
+    border-radius: 12px;
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #333;
+    z-index: 21;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                top 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  #robot-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid #ffd700;
+  }
+
+  </style>
 </head>
 <body>
 
@@ -333,6 +379,78 @@
     // 팝업 닫기
     document.getElementById('entry-overlay').style.display = 'none';
   }
+
+
+  // ── 로봇 캐릭터 이동 로직 ──
+  // 각 버튼의 CSS left/top 정의 (% 단위)
+  const btnPos = {
+    'btn9': { left: 66, top: 54 },  // 1단계
+    'btn8': { left: 54, top: 42 },  // 2단계
+    'btn7': { left: 48, top: 56 },  // 3단계
+    'btn6': { left: 38, top: 56 },  // 4단계
+    'btn5': { left: 28, top: 48 },  // 5단계 (현재 진행중)
+    'btn4': { left: 78, top: 32 },  // lock
+    'btn3': { left: 62, top: 28 },  // lock
+    'btn2': { left: 45, top: 20 },  // lock
+    'btn1': { left: 32, top: 24 },  // lock
+    'btnS': { left: 72, top: 62 },  // 별
+  };
+
+  function moveRobotTo(btnId) {
+    const pos = btnPos[btnId];
+    if (!pos) return;
+    const robot = document.getElementById('robot-character');
+    const bubble = document.getElementById('robot-bubble');
+    if (!robot || !bubble) return;
+    // 로봇 위치: 버튼 왼쪽 위에 표시
+    robot.style.left = (pos.left - 5) + '%';
+    robot.style.top = (pos.top - 18) + '%';
+    bubble.style.left = (pos.left - 4) + '%';
+    bubble.style.top = (pos.top - 28) + '%';
+  }
+
+  function getCurrentActiveBtn() {
+    // 잠기지 않은 버튼 중 가장 첫 번째(숫자가 작은) 활성 버튼 찾기
+    const allBtns = ['btn5','btn6','btn7','btn8','btn9','btnS'];
+    for (const id of allBtns) {
+      const el = document.getElementById(id);
+      if (el && !el.classList.contains('locked')) {
+        return id;
+      }
+    }
+    return 'btnS';
+  }
+
+  // 말풍선 텍스트 매핑
+  const bubbleText = {
+    'btn9': '여기서 시작!',
+    'btn8': '2단계 도전!',
+    'btn7': '3단계 도전!',
+    'btn6': '4단계 도전!',
+    'btn5': '진행 중! 🔥',
+    'btnS': '튜토리얼!',
+  };
+
+  function initRobot() {
+    const activeBtn = getCurrentActiveBtn();
+    const bubble = document.getElementById('robot-bubble');
+    if (bubble) {
+      bubble.textContent = bubbleText[activeBtn] || '현재 단계!';
+    }
+    moveRobotTo(activeBtn);
+  }
+
+  // 페이지 로드 후 로봇 배치
+  window.addEventListener('load', function() {
+    setTimeout(initRobot, 500);
+  });
+
+  // enterMap 수정: 입장 후 로봇 초기화
+  const _origEnterMap = enterMap;
+  enterMap = function() {
+    _origEnterMap();
+    setTimeout(initRobot, 600);
+  };
 
 </script>
 
