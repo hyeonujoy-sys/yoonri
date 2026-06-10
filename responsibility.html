@@ -29,19 +29,19 @@ body{font-family:'Noto Sans KR',Arial,sans-serif;background:#1a1a2e;color:#fff;m
 .s-ok{color:#4caf50;}
 .s-no{color:#f44336;}
 .center-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;}
-.timer-wrap{width:100%;max-width:720px;}
+.timer-wrap{width:100%;max-width:480px;}
 .tbar-bg{height:8px;background:#333;border-radius:4px;overflow:hidden;}
 .tbar{height:100%;border-radius:4px;transition:width 0.1s linear;background:linear-gradient(90deg,#4caf50,#8bc34a);}
 .tlabel{font-size:11px;color:#aaa;text-align:right;margin-top:2px;}
-.doc-area{width:100%;max-width:720px;background:rgba(0,0,0,0.65);border:2px solid #4fc3f7;border-radius:12px;padding:16px;}
-.doc-paper{background:#fffef0;color:#222;border-radius:8px;padding:22px 26px;box-shadow:0 4px 20px rgba(0,0,0,0.4);}
+.doc-area{width:100%;max-width:480px;background:rgba(0,0,0,0.65);border:2px solid #4fc3f7;border-radius:12px;padding:16px;}
+.doc-paper{background:#fffef0;color:#222;border-radius:8px;padding:14px 16px;box-shadow:0 4px 20px rgba(0,0,0,0.4);}
 .doc-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid #333;}
-.doc-no{font-size:14px;color:#666;font-weight:bold;}
-.doc-badge{font-size:13px;background:#e3f2fd;color:#1565c0;padding:2px 8px;border-radius:4px;border:1px solid #90caf9;}
-.doc-title{font-size:20px;font-weight:bold;color:#1a1a2e;margin-bottom:10px;}
-.doc-body{font-size:17px;line-height:1.8;color:#333;}
+.doc-no{font-size:11px;color:#666;font-weight:bold;}
+.doc-badge{font-size:11px;background:#e3f2fd;color:#1565c0;padding:2px 8px;border-radius:4px;border:1px solid #90caf9;}
+.doc-title{font-size:14px;font-weight:bold;color:#1a1a2e;margin-bottom:8px;}
+.doc-body{font-size:12px;line-height:1.7;color:#333;}
 .doc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;}
-.tag{font-size:13px;padding:4px 10px;border-radius:10px;background:#f0f0f0;color:#555;border:1px solid #ddd;}
+.tag{font-size:10px;padding:2px 7px;border-radius:10px;background:#f0f0f0;color:#555;border:1px solid #ddd;}
 .action-bar{display:flex;gap:14px;}
 .btn-ok{background:linear-gradient(135deg,#2e7d32,#43a047);border:none;color:#fff;font-size:15px;font-weight:bold;padding:11px 28px;border-radius:12px;cursor:pointer;box-shadow:0 4px 12px rgba(0,128,0,0.4);transition:all 0.2s;}
 .btn-ok:hover:not(:disabled){transform:translateY(-2px);}
@@ -79,10 +79,133 @@ body{font-family:'Noto Sans KR',Arial,sans-serif;background:#1a1a2e;color:#fff;m
 .toast-t{font-size:13px;font-weight:bold;margin-top:5px;white-space:pre-line;}
 .toast.correct{border:2px solid #4caf50;}
 .toast.wrong{border:2px solid #f44336;}
+
+  .courtroom-bg {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 55%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .courtroom-bg svg {
+    width: 100%;
+    height: 100%;
+  }
 </style>
 </head>
 <body>
 <div class="bg"></div>
+
+  <!-- 재판정 배경 일러스트 -->
+  <div class="courtroom-bg">
+    <svg viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+      <!-- 바닥 -->
+      <rect x="0" y="340" width="1200" height="80" fill="#6b4c2a" opacity="0.7"/>
+      <rect x="0" y="335" width="1200" height="10" fill="#8B6340" opacity="0.8"/>
+
+      <!-- 중앙 판사 책상 -->
+      <rect x="430" y="230" width="340" height="110" rx="6" fill="#5a3010" opacity="0.85"/>
+      <rect x="420" y="218" width="360" height="22" rx="4" fill="#7a4820" opacity="0.9"/>
+      <!-- 책상 앞판 몰딩 -->
+      <rect x="435" y="232" width="330" height="6" rx="2" fill="#8B5E2A" opacity="0.6"/>
+      <rect x="435" y="326" width="330" height="6" rx="2" fill="#8B5E2A" opacity="0.6"/>
+
+      <!-- 판사봉 받침대 -->
+      <ellipse cx="560" cy="228" rx="28" ry="8" fill="#8B6914" opacity="0.9"/>
+      <rect x="546" y="200" width="28" height="30" rx="3" fill="#A0791A" opacity="0.9"/>
+      <rect x="540" y="194" width="40" height="12" rx="4" fill="#C49A22" opacity="0.95"/>
+
+      <!-- 판사봉 -->
+      <rect x="548" y="150" width="12" height="52" rx="4" fill="#C8A020" opacity="0.95"
+            transform="rotate(-30 560 195)"/>
+      <ellipse cx="530" cy="175" rx="18" ry="9" fill="#D4B030" opacity="0.95"
+               transform="rotate(-30 560 195)"/>
+      <ellipse cx="569" cy="153" rx="18" ry="9" fill="#D4B030" opacity="0.95"
+               transform="rotate(-30 560 195)"/>
+
+      <!-- 마이크 -->
+      <rect x="610" y="190" width="6" height="38" fill="#aaa" opacity="0.8"/>
+      <ellipse cx="613" cy="186" rx="10" ry="14" fill="#888" opacity="0.85"/>
+      <ellipse cx="613" cy="186" rx="6" ry="10" fill="#555" opacity="0.8"/>
+      <ellipse cx="613" cy="230" rx="14" ry="4" fill="#999" opacity="0.7"/>
+
+      <!-- 서류 넣는 함 (오른쪽) -->
+      <rect x="680" y="222" width="70" height="80" rx="4" fill="#2a4a7a" opacity="0.85"/>
+      <rect x="675" y="218" width="80" height="12" rx="3" fill="#3a5a9a" opacity="0.9"/>
+      <!-- 함 안 칸 -->
+      <rect x="681" y="234" width="68" height="1" fill="#4a6aaa" opacity="0.6"/>
+      <rect x="681" y="260" width="68" height="1" fill="#4a6aaa" opacity="0.6"/>
+      <rect x="681" y="286" width="68" height="1" fill="#4a6aaa" opacity="0.6"/>
+      <!-- 함 레이블 -->
+      <rect x="684" y="237" width="62" height="18" rx="2" fill="#1a3a6a" opacity="0.5"/>
+      <rect x="684" y="263" width="62" height="18" rx="2" fill="#1a3a6a" opacity="0.5"/>
+      <rect x="684" y="289" width="62" height="18" rx="2" fill="#1a3a6a" opacity="0.5"/>
+      <!-- 서류 삐져나옴 -->
+      <rect x="688" y="228" width="50" height="14" rx="1" fill="#fffde7" opacity="0.85"/>
+      <rect x="690" y="256" width="44" height="12" rx="1" fill="#fffde7" opacity="0.75"/>
+
+      <!-- 왼쪽 서류 더미 -->
+      <rect x="440" y="208" width="70" height="18" rx="2" fill="#fffde7" opacity="0.8"/>
+      <rect x="443" y="202" width="65" height="18" rx="2" fill="#fff9c4" opacity="0.75"/>
+      <rect x="446" y="196" width="60" height="18" rx="2" fill="#fffde7" opacity="0.7"/>
+      <!-- 서류 줄 -->
+      <rect x="450" y="205" width="40" height="2" rx="1" fill="#aaa" opacity="0.5"/>
+      <rect x="450" y="210" width="30" height="2" rx="1" fill="#aaa" opacity="0.4"/>
+
+      <!-- 책 (왼쪽) -->
+      <rect x="440" y="175" width="22" height="28" rx="2" fill="#8B1a1a" opacity="0.85"/>
+      <rect x="462" y="177" width="20" height="26" rx="2" fill="#1a4a8B" opacity="0.85"/>
+      <rect x="482" y="179" width="18" height="24" rx="2" fill="#1a6a2a" opacity="0.85"/>
+      <rect x="440" y="173" width="60" height="4" rx="1" fill="#aaa" opacity="0.4"/>
+
+      <!-- 국기봉 (좌) -->
+      <rect x="350" y="80" width="6" height="260" fill="#8B6914" opacity="0.7"/>
+      <rect x="326" y="70" width="54" height="4" rx="2" fill="#C49A22" opacity="0.8"/>
+      <!-- 태극기 느낌 직사각형 -->
+      <rect x="327" y="74" width="52" height="34" rx="2" fill="#f5f5f5" opacity="0.6"/>
+      <circle cx="353" cy="91" r="10" fill="#e74c3c" opacity="0.5"/>
+      <!-- 국기봉 받침 -->
+      <ellipse cx="353" cy="340" rx="20" ry="6" fill="#7a5210" opacity="0.7"/>
+
+      <!-- 국기봉 (우) -->
+      <rect x="844" y="80" width="6" height="260" fill="#8B6914" opacity="0.7"/>
+      <rect x="820" y="70" width="54" height="4" rx="2" fill="#C49A22" opacity="0.8"/>
+      <rect x="821" y="74" width="52" height="34" rx="2" fill="#f5f5f5" opacity="0.6"/>
+      <circle cx="847" cy="91" r="10" fill="#3498db" opacity="0.5"/>
+      <ellipse cx="847" cy="340" rx="20" ry="6" fill="#7a5210" opacity="0.7"/>
+
+      <!-- 좌측 방청석 책상 -->
+      <rect x="60" y="280" width="240" height="65" rx="4" fill="#4a2e0a" opacity="0.6"/>
+      <rect x="50" y="272" width="260" height="14" rx="3" fill="#6a3e1a" opacity="0.65"/>
+
+      <!-- 우측 방청석 책상 -->
+      <rect x="900" y="280" width="240" height="65" rx="4" fill="#4a2e0a" opacity="0.6"/>
+      <rect x="890" y="272" width="260" height="14" rx="3" fill="#6a3e1a" opacity="0.65"/>
+
+      <!-- 좌측 방청석 서류/노트북 -->
+      <rect x="80" y="262" width="60" height="16" rx="2" fill="#fffde7" opacity="0.6"/>
+      <rect x="160" y="258" width="50" height="20" rx="3" fill="#2a2a2a" opacity="0.5"/>
+      <rect x="162" y="260" width="46" height="14" rx="1" fill="#1a6aaa" opacity="0.4"/>
+
+      <!-- 우측 방청석 서류/노트북 -->
+      <rect x="1060" y="262" width="60" height="16" rx="2" fill="#fffde7" opacity="0.6"/>
+      <rect x="980" y="258" width="50" height="20" rx="3" fill="#2a2a2a" opacity="0.5"/>
+      <rect x="982" y="260" width="46" height="14" rx="1" fill="#1a6aaa" opacity="0.4"/>
+
+      <!-- 중앙 봉황 문장 (판사 뒤) -->
+      <circle cx="600" cy="130" r="40" fill="none" stroke="#C49A22" stroke-width="2" opacity="0.35"/>
+      <circle cx="600" cy="130" r="32" fill="none" stroke="#C49A22" stroke-width="1" opacity="0.25"/>
+      <text x="600" y="138" text-anchor="middle" font-size="36" fill="#C49A22" opacity="0.35">⚖</text>
+
+      <!-- 천장 조명 -->
+      <ellipse cx="600" cy="30" rx="60" ry="12" fill="#f5c842" opacity="0.15"/>
+      <rect x="595" y="28" width="10" height="40" fill="#C49A22" opacity="0.2"/>
+      <ellipse cx="600" cy="70" rx="30" ry="8" fill="#f5e68a" opacity="0.2"/>
+    </svg>
+  </div>
+
 <div class="modal-ov" id="introModal">
   <div class="modal-box">
     <div class="modal-badge">🛡️ 안내</div>
